@@ -2,7 +2,6 @@ package riccardogulin.u5d11.payload;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record NewUserDTO(
@@ -17,6 +16,6 @@ public record NewUserDTO(
 		String email,
 		@NotBlank(message = "La password è obbligatoria!")
 		@Size(min = 4, message = "La password deve avere minimo 4 caratteri")
-		@Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{4,}$", message = "La password deve contenere una maiuscola, una minuscola ecc ecc ...")
+		// @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{4,}$", message = "La password deve contenere una maiuscola, una minuscola ecc ecc ...")
 		String password) {
 }

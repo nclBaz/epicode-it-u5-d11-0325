@@ -122,4 +122,8 @@ public class UsersService {
 			throw new RuntimeException(e);
 		}
 	}
+
+	public User findByEmail(String email) {
+		return this.usersRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("L'utente con l'email " + email + " non è stato trovato"));
+	}
 }

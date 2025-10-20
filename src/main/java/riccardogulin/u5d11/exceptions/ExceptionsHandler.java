@@ -26,6 +26,12 @@ public class ExceptionsHandler {
 		return new ErrorsWithListDTO(ex.getMessage(), LocalDateTime.now(), ex.getErrorsMessages());
 	}
 
+	@ExceptionHandler(UnauthorizedException.class)
+	@ResponseStatus(HttpStatus.UNAUTHORIZED) // 401
+	public ErrorsDTO handleUnauthorizedException(UnauthorizedException ex) {
+		return new ErrorsDTO(ex.getMessage(), LocalDateTime.now());
+	}
+
 	@ExceptionHandler(BadRequestException.class) // Tra le parentesi indico quale eccezione dovrà gestire questo metodo
 	@ResponseStatus(HttpStatus.BAD_REQUEST) // 400
 	public ErrorsDTO handleBadRequest(BadRequestException ex) {
