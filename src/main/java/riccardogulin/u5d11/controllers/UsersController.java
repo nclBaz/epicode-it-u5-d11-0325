@@ -3,12 +3,9 @@ package riccardogulin.u5d11.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import riccardogulin.u5d11.entities.User;
-import riccardogulin.u5d11.exceptions.ValidationException;
 import riccardogulin.u5d11.payload.NewUserDTO;
 import riccardogulin.u5d11.services.UsersService;
 
@@ -19,7 +16,6 @@ import java.util.UUID;
 /*
 
 1. GET http://localhost:3001/users
-2. POST http://localhost:3001/users (+ request body)
 3. GET http://localhost:3001/users/{userId}
 4. PUT http://localhost:3001/users/{userId} (+ request body)
 5. DELETE  http://localhost:3001/users/{userId}
@@ -42,19 +38,6 @@ public class UsersController {
 		return this.usersService.findAll(page, size, sortBy);
 	}
 
-	// 2. POST http://localhost:3001/users (+ request body)
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public User createUser(@RequestBody @Validated NewUserDTO payload, BindingResult validationResult) {
-		// @Validated serve per "attivare" la validazione
-		// BindingResult è un oggetto che contiene tutti gli errori e anche dei metodi comodi da usare tipo .hasErrors()
-		if (validationResult.hasErrors()) {
-
-			throw new ValidationException(validationResult.getFieldErrors()
-					.stream().map(fieldError -> fieldError.getDefaultMessage()).toList());
-		}
-		return this.usersService.save(payload);
-	}
 
 	// 3. GET http://localhost:3001/users/{userId}
 	@GetMapping("/{userId}")
